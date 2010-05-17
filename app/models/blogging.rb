@@ -5,7 +5,7 @@ class Blogging < ActiveRecord::Base
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
 
-  accepts_nested_attributes_for :subject, :reject_if => :all_blank
+  accepts_nested_attributes_for :subject, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   validates_presence_of :title
 
   named_scope :latest, {:order => "created_at DESC", :limit => 5}

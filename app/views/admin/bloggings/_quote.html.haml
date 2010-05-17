@@ -1,1 +1,16 @@
+- quote = (@blogging.subject.is_a?(Quote)) ? @blogging.subject : Quote.new
+- f.fields_for :subject, quote do |qf|
+  
+  #choose_Quote
+    = qf.hidden_field :id
+    %p
+      = qf.label :body, "Quote text"
+      = qf.text_area :body, :class => 'textarea'
+    
+    %p
+      = qf.label :speaker, "Speaker"
+      = qf.text_field :speaker, :class => 'textbox'
 
+    %p
+      = qf.label :url, "Link url"
+      = qf.text_field :url, :class => 'textbox'

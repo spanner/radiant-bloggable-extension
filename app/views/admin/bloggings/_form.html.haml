@@ -12,44 +12,34 @@
 
   #blogging_form.form-area.container_12
     - render_region :form do |form|
-      - form.edit_subject do
-        #choose_subject
-          
-          .subject_type
+      - form.edit_blogging do
+        .grid_2
+          #subject_type
             %p
-              = f.label :subject_type, "Featured item"
+              = f.label :subject_type, "Featured item, if any"
               = f.select :subject_type, bloggable_models.map{|klass| [ klass.to_s.downcase, klass.to_s.titlecase]}, {:include_blank => "None"}, {:class => 'textbox choose_type'}
-
-          .subject_detail
-            %p#choose_
-              &nbsp;
-              
+        .grid_10
+          #subject_detail
             - bloggable_models.each do |klass|
               = render :partial => "admin/bloggings/#{klass.to_s.downcase}", :locals => {:f => f}
-
-          .blog
-            %p.blogging_blog
-              = f.label :blog_id, "Choose a blog"
-              = f.select :blog_id, Blog.all.map {|b| [b.title, b.id]}, {:include_blank => false}, :class => 'textbox'
-              %span.note
-                edit the
-                = link_to "list of blogs", admin_blogs_url
             
-      - form.edit_text do
-        #edit_blogging
-
-          %p.blogging_body
+          %p
             - if defined? TinyMceFilter
               = link_to image('mce', :alt=> 'toolbar icon'), '#', :class => 'toggleMCE', :rel => 'toggle[blogging_body]'
             = f.label :body, "Your text, if any"
             = f.text_area :body, :class => 'textarea'
             %span.note
-              If you leave this blank then the blog will just show the featured item.
+              You can leave this blank: the blog will just show the featured item.
 
-      - form.preview do
-        #preview_blogging
-          &nbsp;
-
+      - form.edit_blog do
+        - if Blog.all.count > 1
+          #choose_blog.grid_12
+            %p
+              = f.label :blog_id, "Choose a blog"
+              = f.select :blog_id, Blog.all.map {|b| [b.title, b.id]}, {:include_blank => false}, :class => 'textbox'
+              %span.note
+                edit the
+                = link_to "list of blogs", admin_blogs_url
 
 
   - render_region :form_bottom do |form_bottom|
