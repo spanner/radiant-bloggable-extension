@@ -1,0 +1,66 @@
+- include_stylesheet "admin/bloggable"
+- include_javascript "admin/bloggable"
+
+- if defined? TinyMceFilter
+  - include_javascript "tiny_mce/tiny_mce"
+  - include_javascript "tiny_mce/tiny_mce_settings"
+  - include_javascript "tiny_mce/application"
+
+
+- form_for [:admin, @blogging], :html => {'data-onsubmit_status' => onsubmit_status(@blogging)} do |f|
+  = render_region :form_top
+
+  #blogging_form.form-area.container_12
+    - render_region :form do |form|
+      - form.edit_subject do
+        #choose_subject
+          
+          .subject_type
+            %p
+              = f.label :subject_type, "Featured item"
+              = f.select :subject_type, bloggable_models.map{|klass| [ klass.to_s.downcase, klass.to_s.titlecase]}, {:include_blank => "None"}, {:class => 'textbox choose_type'}
+
+          .subject_detail
+            %p#choose_
+              &nbsp;
+              
+            - bloggable_models.each do |klass|
+              = render :partial => "admin/bloggings/#{klass.to_s.downcase}", :locals => {:f => f}
+
+          .blog
+            %p.blogging_blog
+              = f.label :blog_id, "Choose a blog"
+              = f.select :blog_id, Blog.all.map {|b| [b.title, b.id]}, {:include_blank => false}, :class => 'textbox'
+              %span.note
+                edit the
+                = link_to "list of blogs", admin_blogs_url
+            
+      - form.edit_text do
+        #edit_blogging
+
+          %p.blogging_body
+            - if defined? TinyMceFilter
+              = link_to image('mce', :alt=> 'toolbar icon'), '#', :class => 'toggleMCE', :rel => 'toggle[blogging_body]'
+            = f.label :body, "Your text, if any"
+            = f.text_area :body, :class => 'textarea'
+            %span.note
+              If you leave this blank then the blog will just show the featured item.
+
+      - form.preview do
+        #preview_blogging
+          &nbsp;
+
+
+
+  - render_region :form_bottom do |form_bottom|
+    - form_bottom.edit_timestamp do
+      = updated_stamp @blogging  
+
+    - form_bottom.edit_buttons do
+      %p.buttons
+        = save_model_button(@blogging)
+        = save_model_and_continue_editing_button(@blogging)
+        or
+        = link_to "Cancel", admin_bloggings_url
+
+

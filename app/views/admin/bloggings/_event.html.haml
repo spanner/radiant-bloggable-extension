@@ -1,0 +1,5 @@
+%p#choose_Event{:class => ('fg' if @blogging.subject_type == 'Event')}
+  = f.label :subject_id, "Choose an event"
+  = f.select :subject_id, Event.all.map {|e| ["#{e.date}: #{e.title}", e.id]}, {}, :class => 'textbox'
+  %span.note
+    The event will be displayed as a calendar block at the bottom of your text

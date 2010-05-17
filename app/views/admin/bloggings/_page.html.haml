@@ -1,0 +1,5 @@
+%p#choose_Page
+  = f.label :subject_id, "Choose a page"
+  = f.select :subject_id, Page.all.map {|p| [p.title, p.id]}, {}, :class => 'textbox'
+  %span.note
+    The page will appear as a link at the bottom of your text

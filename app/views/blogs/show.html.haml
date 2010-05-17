@@ -1,0 +1,16 @@
+- content_for :title do
+  = blog.title
+
+- content_for :body do
+  #introduction
+    = blog.introduction
+  
+  #bloggings
+    = render :partial => 'blogging', :collection => bloggings
+
+- content_for :pagination do
+  - if bloggings.next_page || bloggings.previous_page
+    .pagination
+      = will_paginate(bloggings, :container => false)
+      %span.summary
+        = page_entries_info(bloggings, :entry_name => 'blog entry')

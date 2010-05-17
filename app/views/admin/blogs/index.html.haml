@@ -1,0 +1,51 @@
+- include_stylesheet 'admin/bloggable'
+= render_region :top 
+
+#blogs_table.outset
+  %table{ :class => "index", :cellpadding => "0", :cellspacing => "0", :border => "0"}
+    %thead
+      %tr
+        - render_region :thead do |thead|
+          - thead.title_header do
+            %th.blog-title Title
+          - thead.introduction_header do
+            %th.blog-introduction Introduction
+          - thead.contents_header do
+            %th.blog-contents Latest
+          - thead.modify_header do
+            %th.modify{:colspan =>"2"} Modify
+
+    %tbody
+      - for blog in @blogs 
+        %tr.node
+          - render_region :tbody do |tbody|
+            - tbody.title_cell do
+              %td.blog
+                = link_to image('blog', :alt => ''), edit_admin_blog_url(:id => blog.id) 
+                = link_to blog.title, edit_admin_blog_url(:id => blog.id) 
+
+            - tbody.introduction_cell do
+              %td.introduction
+                = blog.introduction
+                
+            - tbody.contents_cell do
+              %td.contents
+                - blog.bloggings.latest(5).each do |blogging|
+                  = blogging.title
+
+            - tbody.modify_cell do
+              %td.add
+                = link_to "new blog entry", new_admin_blog_blogging_url(blog)
+              %td.remove
+                = link_to "#{t("remove")} #{t("blog")}" , remove_admin_blog_url(blog)
+ 
+- render_region :bottom do |bottom|
+  - bottom.buttons do
+    #actions
+      %ul
+        %li= link_to image('plus') + " " + "new blog", new_admin_blog_url
+   
+%script{ :type => "text/javascript"}
+  // <! [CDATA[
+  new RuledTable('blogs')
+  //]

@@ -1,0 +1,5 @@
+%p#choose_Asset{:class => ('fg' if @blogging.subject_type == 'Asset')}
+  = f.label :subject_id, "Choose an asset"
+  = f.select :subject_id, Asset.all.map {|a| [a.title, a.id]}, {}, :class => 'textbox'
+  %span.note
+    The asset will be featured on the blog page with your text as a caption

@@ -1,0 +1,51 @@
+- include_stylesheet 'admin/bloggable'
+= render_region :top 
+
+#blogginggings_table.outset
+  %table{ :class => "index", :cellpadding => "0", :cellspacing => "0", :border => "0"}
+    %thead
+      %tr
+        - render_region :thead do |thead|
+          - thead.title_header do
+            %th.blogging-title Title
+          - thead.subject_header do
+            %th.blogging-subject Subject
+          - thead.body_header do
+            %th.blogging-body Commentary
+          - thead.modify_header do
+            %th.modify{:colspan =>"2"} Modify
+
+    %tbody
+      - for blogging in @bloggings 
+        %tr.node.level-1
+          - render_region :tbody do |tbody|
+            - tbody.title_cell do
+              %td.blogging
+                = link_to image('blogging', :alt => ''), edit_admin_blogging_url(blogging) 
+                = link_to blogging.title, edit_admin_blogging_url(blogging) 
+
+            - tbody.subject_cell do
+              %td.subject
+                = blogging.subject_type + ":"
+                = blogging.subject.title
+                
+            - tbody.body_cell do
+              %td.body
+                = blogging.body
+
+            - tbody.modify_cell do
+              %td.remove
+                = link_to "#{t("remove")} #{t("blog-entry")}" , admin_blogging_url(blogging), :method => 'delete', :confirm => "are you sure you want to remove that blog entry?"
+ 
+- render_region :bottom do |bottom|
+  - bottom.buttons do
+    #actions
+      = will_paginate @bloggings
+      %ul
+        %li= link_to image('plus') + " " + "new blogging", new_admin_blogging_url
+        %li= link_to t("blog-list"), admin_blogs_url
+   
+%script{ :type => "text/javascript"}
+  // <! [CDATA[
+  new RuledTable('bloggings')
+  //]

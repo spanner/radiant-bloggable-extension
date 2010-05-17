@@ -1,0 +1,51 @@
+- include_stylesheet "admin/bloggable"
+- include_javascript "admin/bloggable"
+
+- if defined? TinyMceFilter
+  - include_javascript "tiny_mce/tiny_mce"
+  - include_javascript "tiny_mce/tiny_mce_settings"
+  - include_javascript "tiny_mce/application"
+
+- form_for [:admin, @blog], :html => {'data-onsubmit_status' => onsubmit_status(@blog)} do |f|
+  = render_region :form_top
+
+  #blog_form.form-area.container_12
+    - render_region :form do |form|
+      
+      - form.edit_title do
+        %p.blog_title
+          = f.label :title
+          = f.text_field :title, :class => "textbox"
+          %span.note
+            This will be the page title
+
+      - form.edit_slug do
+        %p.blog_slug
+          = f.label :slug
+          = f.text_field :slug, :class => "textbox"
+          %span.note
+            Leave this blank to create a default blog at /blog
+
+      - form.edit_introduction do
+        %p.blog_introduction
+          - if defined? TinyMceFilter
+            = link_to image('mce', :alt=> 'toolbar icon'), '#', :class => 'toggleMCE', :rel => 'toggle[blog_introduction]'
+          = f.label :introduction
+          = f.text_area :introduction, :class => 'textarea'
+          %span.note
+            This will always appear at the top of the page, above all the blog entries
+          
+
+
+  - render_region :form_bottom do |form_bottom|
+    - form_bottom.edit_timestamp do
+      = updated_stamp @blog  
+
+    - form_bottom.edit_buttons do
+      %p.buttons
+        = save_model_button(@blog)
+        = save_model_and_continue_editing_button(@blog)
+        or
+        = link_to "Cancel", admin_blogs_url
+
+
