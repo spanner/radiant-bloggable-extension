@@ -1,6 +1,6 @@
 %p#choose_Event
-  = f.label :subject_id, "Choose an event", :class => 'inline'
+  = f.label :event_id, "Choose an event", :class => 'inline'
   %span.note
     to display as a calendar block at the bottom of your text
   %br
-  = f.select :subject_id, Event.all.map {|e| ["#{e.date}: #{e.title}", e.id]}, {}, :class => 'textbox'
+  = f.select :event_id, Event.all.map {|e| ["#{e.date}: #{e.title}", e.id]}, {}, :class => 'textbox'

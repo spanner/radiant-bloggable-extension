@@ -1,5 +1,5 @@
 %p#choose_Asset
-  = f.label :subject_id, "Choose an asset", :class => 'inline'
+  = f.label :asset_id, "Choose an asset", :class => 'inline'
   %span.note
     to display with the text below as a caption
-  = f.select :subject_id, Asset.all.map {|a| [a.title, a.id]}, {}, :class => 'textbox'
+  = f.select :asset_id, Asset.all.map {|a| [a.title, a.id]}, {}, :class => 'textbox'

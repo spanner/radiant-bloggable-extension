@@ -1,6 +1,6 @@
 %p#choose_Page
-  = f.label :subject_id, "Choose a page", :class => 'inline'
+  = f.label :page_id, "Choose a page", :class => 'inline'
   %span.note
     to appear as a link at the bottom of your text
   %br
-  = f.select :subject_id, Page.all.map {|p| [p.title, p.id]}, {}, :class => 'textbox'
+  = f.select :page_id, Page.all.map {|p| [p.title, p.id]}, {}, :class => 'textbox'

@@ -44,7 +44,7 @@ class BlogData < ActiveRecord::Migration
     
     create_table :embeds do |t|
       t.column :title, :string
-      t.column :blog_embed_type_id, :string
+      t.column :body, :text
       t.column :url, :string
       t.column :site_id, :integer
       t.column :created_by_id, :integer
@@ -52,12 +52,6 @@ class BlogData < ActiveRecord::Migration
       t.column :created_at, :datetime
       t.column :updated_at, :datetime
       t.column :lock_version, :integer
-    end
-
-    create_table :embed_types do |t|
-      t.column :title, :string
-      t.column :template, :text
-      t.column :site_id, :integer
     end
   end
 

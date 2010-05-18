@@ -17,13 +17,17 @@ module BloggableModel      # for inclusion into ActiveRecord::Base
       return if is_bloggable?
 
       has_many :bloggings, :as => :subject
-      
+
       class_eval {
         extend BloggableModel::BloggableClassMethods
         include BloggableModel::BloggableInstanceMethods
       }
-
-      ActiveRecord::Base.bloggable_models.push(self.to_s.downcase.intern)
+      
+      model_label = self.to_s.downcase
+      ActiveRecord::Base.bloggable_models.push(model_label.to_sym)
+      
+      # for the form helpers
+      Blogging.send :attr_accessor, "#{model_label}_id".to_sym
     end
   end
 
@@ -34,7 +38,6 @@ module BloggableModel      # for inclusion into ActiveRecord::Base
   end
   
   module BloggableInstanceMethods
-    
   end
 end
 

@@ -1,1 +1,12 @@
-= render :partial => 'admin/quotes/form', :locals => {:quote => Quote.new}
+- embed = (@blogging.subject.is_a?(Embed)) ? @blogging.subject : Embed.new
+- f.fields_for :embed, embed do |ef|
+  
+  #choose_Embed
+    = ef.hidden_field :id
+    %p
+      = ef.label :body, "Embedded html"
+      = ef.text_area :body, :class => 'textarea'
+    
+    %p
+      = ef.label :url, "Source url"
+      = ef.text_field :url, :class => 'textbox'

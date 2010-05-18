@@ -1,5 +1,5 @@
 - quote = (@blogging.subject.is_a?(Quote)) ? @blogging.subject : Quote.new
-- f.fields_for :subject, quote do |qf|
+- f.fields_for :quote, quote do |qf|
   
   #choose_Quote
     = qf.hidden_field :id
