@@ -1,4 +1,4 @@
-%h2
-  = link_to blogging.title, page.url
-%p
+%div.page
+  %h2
+    = link_to blogging.title || page.title, page.url
   = blogging.body

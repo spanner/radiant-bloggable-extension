@@ -27,7 +27,12 @@ module BloggableModel      # for inclusion into ActiveRecord::Base
       ActiveRecord::Base.bloggable_models.push(model_label.to_sym)
       
       # for the form helpers
-      Blogging.send :attr_accessor, "#{model_label}_id".to_sym
+      Blogging.class_eval {
+        define_method "#{model_label}_id".to_sym do
+          subject_id 
+        end
+      } 
+      
     end
   end
 

@@ -5,15 +5,11 @@ class Blogging < ActiveRecord::Base
   belongs_to :updated_by, :class_name => 'User'
   belongs_to :subject, :polymorphic => true
   accepts_nested_attributes_for :subject
-
+  before_save :set_blog
   named_scope :latest, {:order => "created_at DESC", :limit => 5}
-
-  def render
-    Haml::Engine.new("#{File.dirname(__FILE__)}../views/blogging/show.html.haml").render(self)
-  end
   
-  def partial
-    "/blogging/_#{self.subject_type.downcase}"
+  def date
+    created_at.to_datetime.strftime("%-1d %B %Y")
   end
   
   def build_subject(params)
@@ -22,5 +18,9 @@ class Blogging < ActiveRecord::Base
       self.subject.attributes = params
     end
   end
-  
+
+protected
+  def set_blog
+    self.blog ||= Blog.default
+  end
 end

@@ -1,4 +1,19 @@
-%div.asset
-  = image_tag :asset.thumbnail(:blog)
-  %p.caption
+- if asset.horizontal?
+  - image_size = Radiant::Config['blog.landscape_asset_size'] || 'grid_8'
+  - image_class = ''
+  - caption_class = 'caption'
+- elsif asset.square?
+  - image_size = Radiant::Config['blog.square_asset_size'] || 'grid_4'
+  - image_class = 'lefted'
+  - caption_class = 'caption'
+- else
+  - image_size = Radiant::Config['blog.portrait_asset_size'] || 'grid_3'
+  - caption_class = 'caption alongside'
+  - image_class = 'lefted'
+
+
+
+.asset
+  = image_tag asset.thumbnail(image_size), :alt => asset.title, :class => image_class
+  %p{:class => caption_class}
     = blogging.body

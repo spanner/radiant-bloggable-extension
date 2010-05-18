@@ -1,3 +1,10 @@
-%blockquote
-  %p.quote
-    = blog_quote.body
+- cssclass = quote.body.length > 160 ? 'bigquote' : 'giantquote'
+
+%div{:class => cssclass}
+  %span.quote
+    - if quote.url
+      = link_to quote.body, quote.url
+    - else
+      = quote.body
+  %span.credit
+    = quote.speaker

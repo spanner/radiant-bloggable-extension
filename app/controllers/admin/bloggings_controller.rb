@@ -12,7 +12,7 @@ class Admin::BloggingsController < Admin::ResourceController
 protected
   
   def preselect_subject
-    @blogging.subject_type ||= params[:subject_type]
+    @blogging.subject_type ||= params[:subject_type].titlecase
     @blogging.subject_id ||= params[:subject_id]
   end
 
@@ -24,9 +24,10 @@ protected
     if params[:blogging] && type = params[:blogging][:subject_type]
       label = type.to_s.downcase
       params[:blogging][:subject_attributes] = params[:blogging][label.to_sym] || {}
+      params[:blogging][:subject_attributes][:id] = params[:blogging]["#{label}_id".to_sym]
+      params[:blogging][:subject_id] = params[:blogging]["#{label}_id".to_sym]
       unless params[:blogging][:subject_attributes][:id] 
-        params[:blogging][:subject_attributes][:subject_type] = type                    # passes the type through to build_subject
-        params[:blogging][:subject_id] ||= params[:blogging]["#{label}_id".to_sym]      # trade-off: you can't change the subject of a blogging, but you can edit it inline
+        params[:blogging][:subject_attributes][:subject_type] = type                            # passes the type through to build_subject
       end
     end
     bloggable_models.each do |exclude|

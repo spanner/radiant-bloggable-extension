@@ -22,7 +22,7 @@ module BloggableAdminUI
         returning OpenStruct.new do |blog|
           blog.edit = Radiant::AdminUI::RegionSet.new do |edit|
             edit.main.concat %w{edit_header edit_form}
-            edit.form.concat %w{edit_title edit_slug edit_introduction}
+            edit.form.concat %w{edit_title edit_slug edit_layout edit_introduction}
             edit.form_bottom.concat %w{edit_timestamp edit_buttons}
           end
           blog.index = Radiant::AdminUI::RegionSet.new do |index|
@@ -43,8 +43,8 @@ module BloggableAdminUI
             edit.form_bottom.concat %w{edit_timestamp edit_buttons}
           end
           blogging.index = Radiant::AdminUI::RegionSet.new do |index|
-            index.thead.concat %w{title_header subject_header body_header modify_header}
-            index.tbody.concat %w{title_cell subject_cell body_cell modify_cell}
+            index.thead.concat %w{subject_header body_header modify_header}
+            index.tbody.concat %w{subject_cell body_cell modify_cell}
             index.bottom.concat %w{buttons}
           end
           blogging.remove = blogging.index

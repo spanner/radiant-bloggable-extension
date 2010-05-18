@@ -1,0 +1,4 @@
+.blogging
+  = render :partial =>  "bloggings/#{blogging.subject_type.downcase}", :object => blogging.subject, :locals => {:blogging => blogging}
+
+

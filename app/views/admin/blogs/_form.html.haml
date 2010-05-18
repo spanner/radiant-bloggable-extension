@@ -19,6 +19,15 @@
           %span.note
             This will be the page title
 
+      - form.edit_layout do
+        %p.blog_layout
+          = f.label :layout_id
+          = f.select :layout_id, Layout.all.map{|l| [l.name, l.id]}, {:include_blank => true}, {:class => 'textbox'}
+          %span.note
+            Leave this blank to use the global default defined in the blog.layout config entry, which is currently
+            %strong
+              = Radiant::Config['blog.layout'].inspect
+
       - form.edit_slug do
         %p.blog_slug
           = f.label :slug

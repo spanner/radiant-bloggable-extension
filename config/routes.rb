@@ -5,4 +5,5 @@ ActionController::Routing::Routes.draw do |map|
     admin.blog_about "about/:subject_type/:subject_id", :controller => 'bloggings', :action => 'new'
     admin.blog_home '/', :controller => 'bloggings', :action => 'index'
   end
+  map.calendar "/blog.:format", :controller => 'bloggings', :action => 'index'
 end
