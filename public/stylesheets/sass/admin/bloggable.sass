@@ -24,32 +24,32 @@
 
 !radiant_red = #c00
 
+.note, .minor
+  +quiet
+  :display inline
+
 #content 
   #blogging_form, #blog_form
     p
       input.textbox, select.textbox, textarea
         +standard_input
         :margin-top 0.3em
-    .note, label.minor
-      +quiet
-      :display inline
     label.inline
       :display inline
     .hidden 
       :display none
+
 #content
   table.index
     .node
       td
         :padding 6px
       .blog, .blogging
-        :width 15%
         a
           :color black
           :font-size 115%
           :text-decoration none
       .introduction, .body
-        :width 30%
         :color #999
         :font-size 85%
       .add
@@ -66,22 +66,17 @@
           :font-size 80%
           :padding 0 0 0 20px
           :background url(../../images/admin/plus_disabled.png) 4px 0 no-repeat
-  
-#content 
+      .remove
+        :white-space nowrap
+
+#content
   #blogging_form
-    #choose_subject
-      div.subject_type
-        +grid(2)
-      div.subject_detail
-        +grid(8)
-      div.blog
-        +grid(2)
     #edit_blogging
-      :clear left
-    p.blogging_body
-      +grid(6)
       textarea
         :height 200px
+    #choose_Quote, #choose_Embed
+      textarea
+        :height 100px
         
 #content 
   #blog_form
