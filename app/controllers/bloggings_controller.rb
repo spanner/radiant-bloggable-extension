@@ -23,16 +23,13 @@ class BloggingsController < SiteController
 
   def bloggings
     if blog
-      @bloggings ||= blog.bloggings.published.by_publication_date.paginate(pagination_parameters)
+      @bloggings ||= blog.bloggings.published.paginate(pagination_parameters)
     else
-      @bloggings ||= Blogging.published.by_publication_date.paginate(pagination_parameters)
+      @bloggings ||= Blogging.published.paginate(pagination_parameters)
     end
   end
   
   def find_a_layout
-    
-    Rails.logger.warn "!!! find_a_layout: blog is #{blog.inspect} and layout is #{blog.layout.inspect}"
-    
     if blog && blog.layout
       blog.layout.name
     else

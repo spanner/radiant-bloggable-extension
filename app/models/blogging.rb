@@ -8,9 +8,7 @@ class Blogging < ActiveRecord::Base
   before_save :set_blog, :update_status
 
   named_scope :latest, {:limit => 5}
-  named_scope :published, {:conditions => ["status_id >= :published", {:published => Status[:published].id}]}
-  named_scope :by_publication_date, {:order => "published_at DESC"}
-  default_scope :order => "created_at DESC"
+  named_scope :published, {:order => "published_at DESC", :conditions => ["status_id >= :published", {:published => Status[:published].id}]}
   
   def publication_date
     published_at.to_datetime.strftime(date_format) if published_at 
