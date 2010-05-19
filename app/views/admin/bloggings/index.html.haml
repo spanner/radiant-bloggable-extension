@@ -8,6 +8,7 @@
       %tr
         - render_region :thead do |thead|
           - thead.subject_header do
+            %th
             %th.blogging-subject Subject
           - thead.body_header do
             %th.blogging-body Commentary
@@ -19,8 +20,9 @@
         %tr.node.level-1
           - render_region :tbody do |tbody|
             - tbody.subject_cell do
-              %td.blogging
+              %td.icon
                 = link_to image('blogging', :alt => ''), edit_admin_blogging_url(blogging) 
+              %td.blogging
                 = link_to "#{blogging.subject_type}: #{blogging.subject.title}", edit_admin_blogging_url(blogging) 
                 %br
                 %span.note
@@ -29,7 +31,7 @@
                 
             - tbody.body_cell do
               %td.body
-                = blogging.body
+                = truncate(blogging.body, 128)
 
             - tbody.modify_cell do
               %td.remove

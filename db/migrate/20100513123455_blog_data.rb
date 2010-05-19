@@ -15,7 +15,9 @@ class BlogData < ActiveRecord::Migration
     
     create_table :bloggings do |t|
       t.column :title, :string
+      t.column :url, :text
       t.column :body, :text
+      t.column :presentation, :string
       t.column :blog_id, :integer
       t.column :subject_type, :string
       t.column :subject_id, :integer

@@ -12,13 +12,14 @@ class Admin::BloggingsController < Admin::ResourceController
 protected
   
   def preselect_subject
-    @blogging.subject_type ||= params[:subject_type].titlecase
-    @blogging.subject_id ||= params[:subject_id]
+    unless params[:subject_type].blank?
+      @blogging.subject_type ||= params[:subject_type].titlecase
+      @blogging.subject_id ||= params[:subject_id]
+    end
   end
 
   # the build_subject method in Bloggable will use use the subject_attributes to build the right kind of object
-  # here we get rid of any unselected input that remains in the form
-  # and hide a :subject_type attribute for the build method.
+  # here we get rid of any unselected input that remains in the form and move the selected input into subject_attributes
   
   def eliminate_unselected_fields
     if params[:blogging] && type = params[:blogging][:subject_type]

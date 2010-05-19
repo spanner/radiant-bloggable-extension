@@ -1,19 +1,36 @@
-- if asset.horizontal?
-  - image_size = Radiant::Config['blog.landscape_asset_size'] || 'grid_8'
-  - image_class = ''
-  - caption_class = 'caption'
-- elsif asset.square?
-  - image_size = Radiant::Config['blog.square_asset_size'] || 'grid_4'
-  - image_class = 'lefted'
-  - caption_class = 'caption'
-- else
-  - image_size = Radiant::Config['blog.portrait_asset_size'] || 'grid_3'
-  - caption_class = 'caption alongside'
-  - image_class = 'lefted'
+- case blogging.presentation
+  - when "small_asset"
+    - image_size = Radiant::Config['blog.small_asset_size'] || 'grid_3'
+    - image = image_tag asset.thumbnail(image_size), :alt => asset.title, :class => 'shadowed'
+    - body_class = ""
+    .asset
+      .illustration
+        - if blogging.url
+          = link_to image, blogging.url
+        - else 
+          = image
+        %p.caption
+          = asset.caption
 
+  - when "large_asset"
+    - image_size = Radiant::Config['blog.small_asset_size'] || 'grid_10'
+    - image = image_tag asset.thumbnail(image_size), :alt => asset.title
+    - body_class = "caption"
+    .asset
+      - if blogging.url
+        = link_to image, blogging.url
+      - else 
+        = image
 
+  - else
+    - image_size = Radiant::Config['blog.small_asset_size'] || 'grid_6'
+    - image = image_tag asset.thumbnail(image_size), :alt => asset.title, :class => 'lefted'
+    - body_class = "caption lefted"
+    .asset
+      - if blogging.url
+        = link_to image, blogging.url
+      - else 
+        = image
 
-.asset
-  = image_tag asset.thumbnail(image_size), :alt => asset.title, :class => image_class
-  %p{:class => caption_class}
-    = blogging.body
+%div{:class => body_class}
+  = blogging.body

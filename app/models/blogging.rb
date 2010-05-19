@@ -6,7 +6,8 @@ class Blogging < ActiveRecord::Base
   belongs_to :subject, :polymorphic => true
   accepts_nested_attributes_for :subject
   before_save :set_blog
-  named_scope :latest, {:order => "created_at DESC", :limit => 5}
+  named_scope :latest, {:limit => 5}
+  default_scope :order => "created_at DESC"
   
   def date
     created_at.to_datetime.strftime("%-1d %B %Y")

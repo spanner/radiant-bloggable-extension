@@ -1,6 +1,19 @@
-%p#choose_Page
-  = f.label :page_id, "Choose a page", :class => 'inline'
-  %span.note
-    to appear as a link at the bottom of your text
-  %br
-  = f.select :page_id, Page.all.map {|p| [p.title, p.id]}, {}, :class => 'textbox'
+#choose_Page
+
+  %p
+    = f.label :page_id, "Choose a page", :class => 'inline'
+    %span.note
+      to appear as a link at the bottom of your text
+    %br
+    = f.select :page_id, Page.all.map {|p| [p.title, p.id]}, {}, :class => 'textbox'
+
+  %p
+    = f.label :presentation, "Presentation"
+    = f.radio_button :presentation, 'page_text'
+    = f.label :presentation_small, "link around blog text ", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'page_title'
+    = f.label :presentation_medium, "page title as header", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'page_link'
+    = f.label :presentation_large, "big link with caption", :class => 'minor inline'

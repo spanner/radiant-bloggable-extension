@@ -1,6 +1,17 @@
-%p#choose_Event
-  = f.label :event_id, "Choose an event", :class => 'inline'
-  %span.note
-    to display as a calendar block at the bottom of your text
-  %br
-  = f.select :event_id, Event.all.map {|e| ["#{e.date}: #{e.title}", e.id]}, {:allow_blank => false}, :class => 'textbox'
+#choose_Event
+  %p
+    = f.label :event_id, "Choose an event", :class => 'inline'
+    %span.note
+      to display as a calendar block at the bottom of your text
+    %br
+    = f.select :event_id, Event.all.map {|e| ["#{e.date}: #{e.title}", e.id]}, {:allow_blank => false}, :class => 'textbox'
+  %p
+    = f.label :presentation, "Presentation"
+    = f.radio_button :presentation, 'event_text'
+    = f.label :presentation_small, "link around blog text ", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'event_title'
+    = f.label :presentation_medium, "event title as header over text", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'event_link'
+    = f.label :presentation_large, "big title link with caption", :class => 'minor inline'

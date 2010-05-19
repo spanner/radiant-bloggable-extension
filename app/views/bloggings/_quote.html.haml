@@ -1,10 +1,36 @@
-- cssclass = quote.body.length > 160 ? 'bigquote' : 'giantquote'
-
-%div{:class => cssclass}
-  %span.quote
-    - if quote.url
-      = link_to quote.body, quote.url
-    - else
+- case blogging.presentation
+  - when "small_quote"
+    %div.quote
       = quote.body
-  %span.credit
-    = quote.speaker
+      %p.credit
+        - if blogging.url
+          = link_to(quote.speaker, blogging.url)
+        - else
+          = quote.speaker
+          
+  - when "large_quote"
+    - cssclass = 'giantquote'
+    - closequote = image_tag("/images/furniture/closequotes.png", :width => 18, :height => 18, :alt => '"')
+    %div{:class => cssclass}
+      %span.quote
+        - if blogging.url
+          = link_to(quote.body + ' ' + closequote, blogging.url)
+        - else
+          = quote.body
+          = closequote
+      %span.credit
+        = quote.speaker
+
+  - else
+    - cssclass = 'bigquote'
+    - closequote = image_tag("/images/furniture/closequotes.png", :width => 18, :height => 18, :alt => '"')
+    %div{:class => cssclass}
+      %span.quote
+        - if blogging.url
+          = link_to(quote.body + ' ' + closequote, blogging.url)
+        - else
+          = quote.body
+          = closequote
+      %span.credit
+        = quote.speaker
+

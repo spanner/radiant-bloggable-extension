@@ -6,11 +6,17 @@
     %p
       = qf.label :body, "Quote text"
       = qf.text_area :body, :class => 'textarea'
-    
     %p
-      = qf.label :speaker, "Speaker"
+      = qf.label :speaker, "Speaker or situation"
       = qf.text_field :speaker, :class => 'textbox'
 
     %p
-      = qf.label :url, "Link url"
-      = qf.text_field :url, :class => 'textbox'
+      = f.label :presentation, "Presentation"
+      = f.radio_button :presentation, 'small_quote'
+      = f.label :presentation_small, "small text ", :class => 'minor inline'
+      %br
+      = f.radio_button :presentation, 'medium_quote'
+      = f.label :presentation_medium, "medium text", :class => 'minor inline'
+      %br
+      = f.radio_button :presentation, 'large_quote'
+      = f.label :presentation_large, "giant text (for very short quotes)", :class => 'minor inline'

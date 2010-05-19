@@ -1,5 +1,18 @@
-%p#choose_Asset
-  = f.label :asset_id, "Choose an asset", :class => 'inline'
-  %span.note
-    to display with the text below as a caption
-  = f.select :asset_id, Asset.all.map {|a| [a.title, a.id]}, {}, :class => 'textbox'
+#choose_Asset
+
+  %p
+    = f.label :asset_id, "Choose an asset", :class => 'inline'
+    %span.note
+      to display with the text below as a caption
+    = f.select :asset_id, Asset.alphabetical.map {|a| [a.title, a.id]}, {}, :class => 'textbox'
+
+  %p
+    = f.label :presentation, "Presentation"
+    = f.radio_button :presentation, 'small_asset'
+    = f.label :presentation_small, "small image floated in text ", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'medium_asset'
+    = f.label :presentation_medium, "medium image with caption alongside", :class => 'minor inline'
+    %br
+    = f.radio_button :presentation, 'large_asset'
+    = f.label :presentation_large, "large image with caption beneath", :class => 'minor inline'
