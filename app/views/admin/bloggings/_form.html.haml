@@ -38,9 +38,18 @@
             = f.label :url, "Link url"
             = f.text_field :url, :class => 'textbox'
 
+          #set_dates
+            %p#status
+              = f.label :status_id, t('status')
+              = f.select :status_id, Status.find_all.map {|s| [t(s.name.downcase), s.id]}
+
+            %p#published_at
+              = f.label :published_at, t('published_on')
+              = f.text_field :published_at, :class=> "date", :value => (@blogging.published_at? ? I18n.localize(@blogging.published_at.to_date, :format =>:long) : nil)
+
       - form.edit_blog do
         - if Blog.all.count > 1
-          #choose_blog.grid_12
+          #choose_blog.grid_10
             %p
               = f.label :blog_id, "Choose a blog"
               = f.select :blog_id, Blog.all.map {|b| [b.title, b.id]}, {:include_blank => false}, :class => 'textbox'

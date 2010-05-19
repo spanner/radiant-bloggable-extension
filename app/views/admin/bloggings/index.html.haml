@@ -25,9 +25,15 @@
               %td.blogging
                 = link_to "#{blogging.subject_type}: #{blogging.subject.title}", edit_admin_blogging_url(blogging) 
                 %br
-                %span.note
-                  created on
-                  = blogging.date
+                - if blogging.published?
+                  %span.published
+                    published on 
+                    = blogging.publication_date
+                - else
+                  %span.note
+                    created on
+                    = blogging.creation_date
+                    but not yet published
                 
             - tbody.body_cell do
               %td.body

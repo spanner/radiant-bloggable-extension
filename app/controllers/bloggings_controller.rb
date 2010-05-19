@@ -23,9 +23,9 @@ class BloggingsController < SiteController
 
   def bloggings
     if blog
-      @bloggings ||= blog.bloggings.paginate(pagination_parameters)
+      @bloggings ||= blog.bloggings.published.by_publication_date.paginate(pagination_parameters)
     else
-      @bloggings ||= Blogging.all.paginate(pagination_parameters)
+      @bloggings ||= Blogging.published.by_publication_date.paginate(pagination_parameters)
     end
   end
   
